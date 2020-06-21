@@ -57,10 +57,22 @@ export class Server {
       }
 
       socket.on("call-user", (data: any) => {
-        socket.to(data.to).emit("call-made", {
+
+/*
+
+        socket.to(data.to).emit("call-ring", {
+              offer: data.offer,
+              socket: socket.id
+            });
+*/
+
+
+          socket.to(data.to).emit("call-made", {
           offer: data.offer,
           socket: socket.id
         });
+
+
       });
 
       socket.on("make-answer", data => {
@@ -69,6 +81,28 @@ export class Server {
           answer: data.answer
         });
       });
+
+
+      socket.on("stop-camera", data => {
+        socket.to(data.to).emit("camera-stop", {
+          socket: socket.id,
+          answer: data
+        });
+      });
+
+
+      socket.on("start-camera", data => {
+        socket.to(data.to).emit("camera-start", {
+          socket: socket.id,
+          answer: data
+        });
+      });
+
+
+
+
+
+
 
       socket.on("reject-call", data => {
         socket.to(data.from).emit("call-rejected", {
