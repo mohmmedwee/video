@@ -98,7 +98,7 @@ function updateUserList(socketIds) {
   });
 }
 
-const socket = io.connect("localhost:5000");
+const socket = io.connect("http://198.211.117.99:5000");
 
 socket.on("update-user-list", ({ users }) => {
   updateUserList(users);
